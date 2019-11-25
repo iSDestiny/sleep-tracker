@@ -10,15 +10,32 @@
 
 <ion-content>
   <ion-item>
-      <!-- <ion-button (click)="getCurrentTime()">I'm going to sleep.</ion-button>
-      <ion-button (click)="getCurrentTime()">I woke up.</ion-button> -->
       <ion-label>Going to sleep at...</ion-label>
   </ion-item>
   <ion-item>
-      <ion-datetime #startDayPicker displayFormat="MMMM DD, YYYY" placeholder="Select Day" (ionChange)="updateMyDate(startDayPicker.value)"></ion-datetime>
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="MMMM DD, YYYY" placeholder="Set!" [(ngModel)]="sleepDate"></ion-datetime>
   </ion-item>
   <ion-item>
-    <!-- <ion-datetime displayFormat="HH:mm:00" placeholder="Select Time"></ion-datetime> -->
-    <ion-datetime #myPicker displayFormat='DD/MM/YYYY' (ionChange)="updateMyDate(myPicker.value)"></ion-datetime>
+      <ion-label>Time</ion-label>
+    <ion-datetime displayFormat="HH:mm:00" placeholder="Set!" [(ngModel)]="sleepTime"></ion-datetime>
+  </ion-item>
+  <!-- <ion-item>
+    <ion-button [disabled]="!sleepDate || !sleepTime" (click)="handleSleepTime()">Zzz</ion-button>
+  </ion-item> -->
+
+  <ion-item>
+      <ion-label>Woke up at...</ion-label>
+  </ion-item>
+  <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="MMMM DD, YYYY" placeholder="Set!" [(ngModel)]="wakeDate"></ion-datetime>
+  </ion-item>
+  <ion-item>
+      <ion-label>Time</ion-label>
+    <ion-datetime displayFormat="HH:mm:00" placeholder="Set!" [(ngModel)]="wakeTime"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-button [disabled]="!sleepDate || !sleepTime || !wakeDate || !wakeTime" (click)="handleWakeTime()">Record night's sleep</ion-button>
   </ion-item>
 </ion-content>
