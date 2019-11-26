@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="home"></ion-back-button>
+        </ion-buttons>
+    <ion-title>overnightsleep</ion-title>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+      <ion-label>Going to sleep at...</ion-label>
+  </ion-item>
+  <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="MMMM DD, YYYY" placeholder="Set!" [(ngModel)]="sleepDate"></ion-datetime>
+  </ion-item>
+  <ion-item>
+      <ion-label>Time</ion-label>
+    <ion-datetime displayFormat="HH:mm:00" placeholder="Set!" [(ngModel)]="sleepTime"></ion-datetime>
+  </ion-item>
+  <!-- <ion-item>
+    <ion-button [disabled]="!sleepDate || !sleepTime" (click)="handleSleepTime()">Zzz</ion-button>
+  </ion-item> -->
+
+  <ion-item>
+      <ion-label>Woke up at...</ion-label>
+  </ion-item>
+  <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="MMMM DD, YYYY" placeholder="Set!" [(ngModel)]="wakeDate"></ion-datetime>
+  </ion-item>
+  <ion-item>
+      <ion-label>Time</ion-label>
+    <ion-datetime displayFormat="HH:mm:00" placeholder="Set!" [(ngModel)]="wakeTime"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-button [disabled]="!sleepDate || !sleepTime || !wakeDate || !wakeTime" (click)="handleWakeTime()">Record night's sleep</ion-button>
+  </ion-item>
+</ion-content>
