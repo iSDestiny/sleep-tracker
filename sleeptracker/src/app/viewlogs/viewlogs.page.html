@@ -11,7 +11,7 @@
 <ion-content>
     <ion-button (click)="toggler()" expand="block">View {{ toggle === 'night' ? 'day' : 'night'}}</ion-button>
     <ion-list *ngIf="toggle === 'night'">
-        <ion-item *ngFor="let d of overnightSleepData">
+        <ion-item *ngFor="let d of allOvernightData">
           <ion-label>
               <h2>{{d.dateString()}}</h2>
               <h3>{{d.summaryString()}}</h3>
@@ -19,7 +19,7 @@
         </ion-item>
       </ion-list>
       <ion-list *ngIf="toggle === 'day'">
-          <ion-item *ngFor="let d of sleepinessData">
+          <ion-item *ngFor="let d of allSleepinessData">
             <ion-label>
                 <h2>{{d.dateString()}}</h2>
                 <h3>{{d.summaryString()}}</h3>
