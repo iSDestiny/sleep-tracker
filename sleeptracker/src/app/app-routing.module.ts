@@ -11,6 +11,10 @@ const routes: Routes = [
     path: 'sleepiness',
     loadChildren: () => import('./sleepiness/sleepiness.module').then( m => m.SleepinessPageModule)
   },
+  {
+    path: 'viewlogs',
+    loadChildren: () => import('./viewlogs/viewlogs.module').then( m => m.ViewlogsPageModule)
+  },
 
 ];
 
