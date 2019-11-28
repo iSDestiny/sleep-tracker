@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>sleepiness</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label>Date</ion-label>
+    <ion-datetime displayFormat="MMMM DD, YYYY" placeholder="Month Day Year" [(ngModel)]="inputDate"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label>Time</ion-label>
+    <ion-datetime displayFormat="HH:mm" placeholder="00:00" [(ngModel)]="inputTime"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label>Sleepiness</ion-label>
+    <ion-button slot="end" fill="clear" (click)="showScalePicker()">{{!scaleScore ? "Select Level" : scaleScore}}</ion-button>
+  </ion-item>
+  <ion-button (click)="handleSleepinessData()">Record sleepiness level</ion-button>
+
+</ion-content>
