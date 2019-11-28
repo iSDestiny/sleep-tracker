@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {PickerController} from "@ionic/angular";
 import { PickerOptions } from "@ionic/core"
 import {StanfordSleepinessData} from "../data/stanford-sleepiness-data";
+import {SleepService} from "../services/sleep.service";
 
 @Component({
   selector: 'app-sleepiness',
@@ -13,7 +14,7 @@ export class SleepinessPage implements OnInit {
   inputTime: string;
   scaleScore: number;
 
-  constructor(private pickerController: PickerController) { }
+  constructor(private pickerController: PickerController, private sleepService: SleepService) { }
 
   ngOnInit() {
   }
@@ -22,6 +23,14 @@ export class SleepinessPage implements OnInit {
     let date = new Date(this.inputDate);
     let time = new Date(this.inputTime);
 
+    console.log(`Sleepiness was logged on ${date.getMonth()} ${date.getDate()} ${date.getFullYear()}, ${time.getHours()}:${time.getMinutes()}`);
+
+    const loggedDate: Date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
+    const sleepinessData = new StanfordSleepinessData(this.scaleScore, loggedDate);
+
+    console.log(sleepinessData.summaryString());
+
+    this.sleepService.logSleepinessData(sleepinessData);
   }
 
   async showScalePicker() {

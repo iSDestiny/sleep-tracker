@@ -44,8 +44,8 @@ export class OvernightsleepPage implements OnInit {
     // console.log(`The date of wake is: ${wd.getMonth()}-${wd.getDate()}-${wd.getFullYear()}`);
     // console.log(`The time of wake is: ${wt.getHours()}:${String(wt.getMinutes()).length === 1 ? `0${wt.getMinutes()}` : wt.getMinutes()}:00`);
 
-    const sleepDate: Date = new Date(sd.getFullYear(), sd.getMonth(), sd.getDate(), st.getHours(), st.getMinutes())
-    const wakeDate: Date = new Date(wd.getFullYear(), wd.getMonth(), wd.getDate(), wt.getHours(), wt.getMinutes())
+    const sleepDate: Date = new Date(sd.getFullYear(), sd.getMonth(), sd.getDate(), st.getHours(), st.getMinutes());
+    const wakeDate: Date = new Date(wd.getFullYear(), wd.getMonth(), wd.getDate(), wt.getHours(), wt.getMinutes());
 
     const overnightSleepData = new OvernightSleepData(sleepDate, wakeDate);
     console.log(overnightSleepData.summaryString());
