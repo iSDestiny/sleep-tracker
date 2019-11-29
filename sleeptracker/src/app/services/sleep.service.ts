@@ -13,6 +13,7 @@ export class SleepService {
 	public static AllSleepinessData:StanfordSleepinessData[] = [];
 
   constructor() {
+    console.log("this got recreated")
   	if(SleepService.LoadDefaultData) {
       this.addDefaultData();
   		SleepService.LoadDefaultData = false;
