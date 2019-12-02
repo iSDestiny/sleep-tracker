@@ -2,7 +2,7 @@
     <ion-toolbar>
         <ion-title>Sleeping</ion-title>
         <ion-buttons slot="end">
-            <ion-button (click)="dismiss()">Close</ion-button>
+            <ion-button (click)="dismiss('close')">Close</ion-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
@@ -14,7 +14,7 @@
             </ion-text>
         </ion-col>
         <ion-col size="12" class="ion-text-center">
-            <ion-button (click)="dismiss()" class="col ion-text-center" size="large" shape="round" color="primary">End Sleep</ion-button>
+            <ion-button (click)="dismiss('endSleep')" class="col ion-text-center" size="large" shape="round" color="primary">End Sleep</ion-button>
         </ion-col>
     </ion-row>
 </ion-content>

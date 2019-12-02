@@ -20,10 +20,10 @@ export class SleepModalComponent implements OnInit {
     }, 500)
   }
 
-  dismiss() {
+  dismiss(type: string) {
     clearInterval(this.interval);
     return this.modalController.dismiss({
-      'dismissed': true,
+      'dismissType': type,
       'endTime': this.currentTime
     });
   }

@@ -27,14 +27,16 @@ export class OvernightsleepPage implements OnInit {
     await modal.present();
     const {data} = await modal.onDidDismiss();
 
-    this.wakeTime = data.endTime;
-    console.log(`The date of wake is: ${this.wakeTime.getMonth()}-${this.wakeTime.getDate()}-${this.wakeTime.getFullYear()}`);
-    console.log(`The time of wake is: ${this.wakeTime.toLocaleTimeString()}`);
+    if(data.dismissType === 'endSleep') {
+      this.wakeTime = data.endTime;
+      console.log(`The date of wake is: ${this.wakeTime.getMonth()}-${this.wakeTime.getDate()}-${this.wakeTime.getFullYear()}`);
+      console.log(`The time of wake is: ${this.wakeTime.toLocaleTimeString()}`);
 
-    const overnightSleepData = new OvernightSleepData(this.sleepTime, this.wakeTime);
-    console.log(overnightSleepData.summaryString());
-    this.sleepService.logOvernightData(overnightSleepData);
-    console.log("All overnight sleep data:", SleepService.AllOvernightData);
+      const overnightSleepData = new OvernightSleepData(this.sleepTime, this.wakeTime);
+      console.log(overnightSleepData.summaryString());
+      this.sleepService.logOvernightData(overnightSleepData);
+      console.log("All overnight sleep data:", SleepService.AllOvernightData);
+    }
   }
 
   ngOnInit() {
