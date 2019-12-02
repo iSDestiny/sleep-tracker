@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { OvernightSleepData } from '../data/overnight-sleep-data';
 import { SleepService } from '../services/sleep.service';
+import {ModalController} from "@ionic/angular";
+import {SleepModalComponent} from "../sleepmodal/sleepmodal.component";
 
 @Component({
   selector: 'app-overnightsleep',
@@ -9,55 +11,32 @@ import { SleepService } from '../services/sleep.service';
 })
 export class OvernightsleepPage implements OnInit {
 
-  public sleepDate;
   public sleepTime;
-  public sleepMaxDate;
-  public sleepMaxTime;
-
-
-  public wakeDate;
   public wakeTime;
-  public wakeMinDate;
-  public wakeMinTime;
 
-  constructor(private sleepService: SleepService) { }
+  constructor(private sleepService: SleepService, public modalController: ModalController) { }
+
+  async presentModal() {
+    this.sleepTime = new Date();
+    console.log(`The date of sleep is: ${this.sleepTime.getMonth()}-${this.sleepTime.getDate()}-${this.sleepTime.getFullYear()}`);
+    console.log(`The time of sleep is: ${this.sleepTime.toLocaleTimeString()}`);
+
+    const modal = await this.modalController.create({
+      component: SleepModalComponent
+    });
+    await modal.present();
+    const {data} = await modal.onDidDismiss();
+
+    this.wakeTime = data.endTime;
+    console.log(`The date of wake is: ${this.wakeTime.getMonth()}-${this.wakeTime.getDate()}-${this.wakeTime.getFullYear()}`);
+    console.log(`The time of wake is: ${this.wakeTime.toLocaleTimeString()}`);
+
+    const overnightSleepData = new OvernightSleepData(this.sleepTime, this.wakeTime);
+    console.log(overnightSleepData.summaryString());
+    this.sleepService.logOvernightData(overnightSleepData);
+    console.log("All overnight sleep data:", SleepService.AllOvernightData);
+  }
 
   ngOnInit() {
-  }
-
-  handleSleepTime(): void {
-    if (!this.sleepDate || !this.sleepTime) {
-      return
-    }
-    let sd: Date = new Date(this.sleepDate);
-    let st: Date = new Date(this.sleepTime);
-    console.log(`The date of sleep is: ${sd.getMonth()}-${sd.getDate()}-${sd.getFullYear()}`);
-    console.log(`The time of sleep is: ${st.getHours()}:${String(st.getMinutes()).length === 1 ? `0${st.getMinutes()}` : st.getMinutes()}:00`);
-    // new OvernightSleepData()
-  }
-
-  handleWakeTime(): void {
-    if (!this.sleepDate || !this.sleepTime || !this.wakeDate || !this.wakeTime) {
-      return
-    }
-    let wd: Date = new Date(this.wakeDate);
-    let wt: Date = new Date(this.wakeTime);
-    let sd: Date = new Date(this.sleepDate);
-    let st: Date = new Date(this.sleepTime);
-    // console.log(`The date of sleep is: ${sd.getMonth()}-${sd.getDate()}-${sd.getFullYear()}`);
-    // console.log(`The time of sleep is: ${st.getHours()}:${String(st.getMinutes()).length === 1 ? `0${st.getMinutes()}` : st.getMinutes()}:00`);
-    // console.log(`The date of wake is: ${wd.getMonth()}-${wd.getDate()}-${wd.getFullYear()}`);
-    // console.log(`The time of wake is: ${wt.getHours()}:${String(wt.getMinutes()).length === 1 ? `0${wt.getMinutes()}` : wt.getMinutes()}:00`);
-
-    const sleepDate: Date = new Date(sd.getFullYear(), sd.getMonth(), sd.getDate(), st.getHours(), st.getMinutes());
-    const wakeDate: Date = new Date(wd.getFullYear(), wd.getMonth(), wd.getDate(), wt.getHours(), wt.getMinutes());
-
-    const overnightSleepData = new OvernightSleepData(sleepDate, wakeDate);
-    console.log(overnightSleepData.summaryString());
-
-    this.sleepService.logOvernightData(overnightSleepData);
-
-    console.log("All overnight data:", SleepService.AllOvernightData);
-
   }
 }
