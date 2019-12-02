@@ -11,9 +11,14 @@ export class OvernightsleepPage implements OnInit {
 
   public sleepDate;
   public sleepTime;
+  public sleepMaxDate;
+  public sleepMaxTime;
+
 
   public wakeDate;
   public wakeTime;
+  public wakeMinDate;
+  public wakeMinTime;
 
   constructor(private sleepService: SleepService) { }
 

@@ -14,38 +14,23 @@ export class SleepService {
 	public static AllSleepinessData:StanfordSleepinessData[] = [];
 
   constructor(private storage: Storage) {
-    this.storage.get('sleepData').then((data) => {
-      if(data) {
-        data.forEach((item) => {
-            if(item.hasOwnProperty('loggedValue')) {
-              SleepService.AllSleepData.push(new StanfordSleepinessData(item.loggedValue, item.loggedAt));
-            }else {
-              SleepService.AllSleepData.push(new OvernightSleepData(item.sleepStart, item.sleepEnd));
-            }
-        })
-      }else {
-        return this.storage.set('sleepData', []);
-      }
-    });
-    this.storage.get('overnightData').then((data) => {
-      if(data) {
-        data.forEach((item) => {
-          SleepService.AllOvernightData.push(new OvernightSleepData(item.sleepStart, item.sleepEnd));
-        })
-      }else {
-        return this.storage.set('overnightData', []);
-      }
-    });
-    this.storage.get('sleepinessData').then((data) => {
-      if(data) {
-        data.forEach((item) => {
-          SleepService.AllSleepinessData.push(new StanfordSleepinessData(item.loggedValue, item.loggedAt));
-        })
-      }else {
-        return this.storage.set('sleepinessData', []);
-      }
-    });
     console.log("this got recreated");
+
+    this.readIntoArray('overnightData').then((data) => {
+      data.forEach(item => {
+        SleepService.AllOvernightData.push(item);
+        SleepService.AllSleepData.push(item);
+      });
+      // console.log(SleepService.AllOvernightData);
+    });
+    this.readIntoArray('sleepinessData').then((data) => {
+      data.forEach(item => {
+        SleepService.AllSleepinessData.push(item);
+        SleepService.AllSleepData.push(item);
+      });
+      // console.log(SleepService.AllSleepinessData);
+    });
+
   	// if(SleepService.LoadDefaultData) {
       // this.addDefaultData();
       // SleepService.LoadDefaultData = false;
@@ -61,22 +46,9 @@ export class SleepService {
   public logOvernightData(sleepData:OvernightSleepData) {
   	SleepService.AllSleepData.push(sleepData);
   	SleepService.AllOvernightData.push(sleepData);
-    this.storage.get('sleepData').then((data) => {
-      if(data) {
-        data.push(sleepData);
-          return this.storage.set('sleepData', data);
-        }else {
-          return this.storage.set('sleepData', [sleepData]);
-        }
-    });
-
-    this.storage.get('overnightData').then((data) => {
-      if(data) {
-        data.push(sleepData);
-          return this.storage.set('overnightData', data);
-        }else {
-          return this.storage.set('overnightData', [sleepData]);
-        }
+    this.create('overnightData', sleepData).then((data) => {
+      console.log(`Logged into overnightData: ${sleepData}`);
+      console.log(data);
     });
   }
 
@@ -84,23 +56,39 @@ export class SleepService {
   	SleepService.AllSleepData.push(sleepData);
   	SleepService.AllSleepinessData.push(sleepData);
 
-  	this.storage.get('sleepData').then((data) => {
-      if(data) {
-        data.push(sleepData);
-          return this.storage.set('sleepData', data);
-      }else {
-          return this.storage.set('sleepData', [sleepData]);
-        }
+    this.create('sleepinessData', sleepData).then((data) => {
+      console.log(`Logged into sleepinessData ${sleepData}`);
+      console.log(data);
     });
+  }
 
-    this.storage.get('sleepinessData').then((data) => {
+  public create(key:string, value:SleepData): Promise<SleepData[]> {
+    return this.storage.get(key).then((data) => {
       if(data) {
-          data.push(sleepData);
-          return this.storage.set('sleepinessData', data);
+        data.push(value);
+        return this.storage.set(key, data);
       }else {
-          return this.storage.set('sleepinessData', [sleepData]);
+        return this.storage.set(key, [value]);
       }
-  });
+    })
+  }
 
+  public readIntoArray(key:string){
+      return this.storage.get(key).then((data: any[]) => {
+        if (data) {
+          console.log(data);
+          return data.map((item) => {
+              if(key === 'sleepinessData') {
+                return new StanfordSleepinessData(item.loggedValue, item.loggedAt, item.id);
+              }else {
+                return new OvernightSleepData(item.sleepStart, item.sleepEnd, item.id);
+              }
+          })
+        }else {
+          return this.storage.set(key, []).then((item) => {
+            return [];
+          });
+        }
+      })
   }
 }
