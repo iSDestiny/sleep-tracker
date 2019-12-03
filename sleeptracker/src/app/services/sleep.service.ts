@@ -9,7 +9,7 @@ import {Storage} from "@ionic/storage";
 })
 export class SleepService {
 	private static LoadDefaultData:boolean = true;
-	public static AllSleepData:SleepData[] = [];
+	// public static AllSleepData:SleepData[] = [];
 	public static AllOvernightData:OvernightSleepData[] = [];
 	public static AllSleepinessData:StanfordSleepinessData[] = [];
 
@@ -19,14 +19,14 @@ export class SleepService {
     this.readIntoArray('overnightData').then((data) => {
       data.forEach(item => {
         SleepService.AllOvernightData.push(item);
-        SleepService.AllSleepData.push(item);
+        // SleepService.AllSleepData.push(item);
       });
       // console.log(SleepService.AllOvernightData);
     });
     this.readIntoArray('sleepinessData').then((data) => {
       data.forEach(item => {
         SleepService.AllSleepinessData.push(item);
-        SleepService.AllSleepData.push(item);
+        // SleepService.AllSleepData.push(item);
       });
       // console.log(SleepService.AllSleepinessData);
     });
@@ -44,7 +44,7 @@ export class SleepService {
   }
 
   public logOvernightData(sleepData:OvernightSleepData) {
-  	SleepService.AllSleepData.push(sleepData);
+  	// SleepService.AllSleepData.push(sleepData);
   	SleepService.AllOvernightData.push(sleepData);
     this.create('overnightData', sleepData).then((data) => {
       console.log(`Logged into overnightData: ${sleepData}`);
@@ -53,7 +53,7 @@ export class SleepService {
   }
 
   public logSleepinessData(sleepData:StanfordSleepinessData) {
-  	SleepService.AllSleepData.push(sleepData);
+  	// SleepService.AllSleepData.push(sleepData);
   	SleepService.AllSleepinessData.push(sleepData);
 
     this.create('sleepinessData', sleepData).then((data) => {
@@ -72,6 +72,37 @@ export class SleepService {
       }
     })
   }
+
+  public delOvernightData(id: string) {
+    
+    this.storage.get("overnightData").then((data: OvernightSleepData[]) => {
+      let newData = data.filter(d => d.id !== id)
+
+      for( var i = 0; i < SleepService.AllOvernightData.length; i++){ 
+        if ( SleepService.AllOvernightData[i].id === id) {
+          SleepService.AllOvernightData.splice(i, 1); 
+        }
+     }
+      
+      return this.storage.set("overnightData", newData);
+    });
+  }
+
+  public delSleepinessData(id: string) {
+    
+    this.storage.get("sleepinessData").then((data: StanfordSleepinessData[]) => {
+      let newData = data.filter(d => d.id !== id)
+
+      for( var i = 0; i < SleepService.AllSleepinessData.length; i++){ 
+        if ( SleepService.AllSleepinessData[i].id === id) {
+          SleepService.AllSleepinessData.splice(i, 1); 
+        }
+     }
+      
+      return this.storage.set("sleepinessData", newData);
+    });
+  }
+
 
   public readIntoArray(key:string){
       return this.storage.get(key).then((data: any[]) => {
