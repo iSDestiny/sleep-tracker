@@ -10,10 +10,11 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule }  from '@ionic/storage';
 import {MenuComponent} from "./menu/menu.component";
+import {SleepModalComponent} from "./sleepmodal/sleepmodal.component";
 
 @NgModule({
-    declarations: [AppComponent, MenuComponent],
-  entryComponents: [],
+    declarations: [AppComponent, MenuComponent, SleepModalComponent],
+  entryComponents: [SleepModalComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot()],
   providers: [
     StatusBar,
