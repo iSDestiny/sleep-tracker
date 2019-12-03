@@ -10,8 +10,6 @@ import {SleepService} from "../services/sleep.service";
   styleUrls: ['./sleepiness.page.scss'],
 })
 export class SleepinessPage implements OnInit {
-  inputDate: string;
-  inputTime: string;
   scaleScore: number;
 
   constructor(private pickerController: PickerController, private sleepService: SleepService) { }
@@ -20,12 +18,7 @@ export class SleepinessPage implements OnInit {
   }
 
   handleSleepinessData() {
-    let date = new Date(this.inputDate);
-    let time = new Date(this.inputTime);
-
-    console.log(`Sleepiness was logged on ${date.getMonth()} ${date.getDate()} ${date.getFullYear()}, ${time.getHours()}:${time.getMinutes()}`);
-
-    const loggedDate: Date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
+    const loggedDate: Date = new Date();
     const sleepinessData = new StanfordSleepinessData(this.scaleScore, loggedDate);
 
     console.log(sleepinessData.summaryString());

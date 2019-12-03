@@ -8,17 +8,19 @@
     <ion-button (click)="toggler()" expand="block">View {{ toggle === 'night' ? 'day' : 'night'}}</ion-button>
     <ion-list *ngIf="toggle === 'night'">
         <ion-item *ngFor="let d of allOvernightData">
-          <ion-label>
+          <ion-label class="ion-text-wrap">
               <h2>{{d.dateString()}}</h2>
               <h3>{{d.summaryString()}}</h3>
+              <ion-button size="small" color="danger" (click)="handleDeleteConfirm(d.id, 'overnight')" ><ion-icon name="close"></ion-icon></ion-button>
           </ion-label>
         </ion-item>
       </ion-list>
       <ion-list *ngIf="toggle === 'day'">
           <ion-item *ngFor="let d of allSleepinessData">
-            <ion-label>
+            <ion-label class="ion-text-wrap">
                 <h2>{{d.dateString()}}</h2>
                 <h3>{{d.summaryString()}}</h3>
+                <ion-button size="small" color="danger" (click)="handleDeleteConfirm(d.id, 'sleepiness')" ><ion-icon name="close"></ion-icon></ion-button>
             </ion-label>
           </ion-item>
         </ion-list>

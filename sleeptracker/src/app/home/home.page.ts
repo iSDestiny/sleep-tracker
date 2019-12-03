@@ -15,13 +15,13 @@ export class HomePage {
 
 	}
 
-	ngOnInit() {
-		console.log(this.allSleepData);
-	}
+	// ngOnInit() {
+	// 	console.log(this.allSleepData);
+	// }
 
-	/* Ionic doesn't allow bindings to static variables, so this getter can be used instead. */
-	get allSleepData() {
-		return SleepService.AllSleepData;
-	}
+	// /* Ionic doesn't allow bindings to static variables, so this getter can be used instead. */
+	// get allSleepData() {
+	// 	return SleepService.AllSleepData;
+	// }
 
 }
