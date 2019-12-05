@@ -11,6 +11,7 @@ import {SleepService} from "../services/sleep.service";
 })
 export class SleepinessPage implements OnInit {
   scaleScore: number;
+  scaleText: string;
 
   constructor(private pickerController: PickerController, private sleepService: SleepService) { }
 
@@ -36,13 +37,13 @@ export class SleepinessPage implements OnInit {
         {
           name: 'sleepiness',
           options: [
-            {text: StanfordSleepinessData.ScaleValues[1], value: 1},
-            {text: StanfordSleepinessData.ScaleValues[2], value: 2},
-            {text: StanfordSleepinessData.ScaleValues[3], value: 3},
-            {text: StanfordSleepinessData.ScaleValues[4], value: 4},
-            {text: StanfordSleepinessData.ScaleValues[5], value: 5},
-            {text: StanfordSleepinessData.ScaleValues[6], value: 6},
-            {text: StanfordSleepinessData.ScaleValues[7], value: 7},
+            {text: '1', value: 1},
+            {text: '2', value: 2},
+            {text: '3', value: 3},
+            {text: '4', value: 4},
+            {text: '5', value: 5},
+            {text: '6', value: 6},
+            {text: '7', value: 7},
           ]
         }
       ],
@@ -52,6 +53,7 @@ export class SleepinessPage implements OnInit {
     picker.onDidDismiss().then(async data => {
       let col = await picker.getColumn('sleepiness');
       this.scaleScore = col.options[col.selectedIndex].value;
+      this.scaleText = StanfordSleepinessData.ScaleValues[this.scaleScore];
     })
   }
 }
