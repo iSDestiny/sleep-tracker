@@ -27,7 +27,7 @@ CSS Docs
     https://www.w3schools.com/css/
 
 4. What classmates or other individuals did you consult as part of this assignment? What did you discuss?
-Other than my partner, none
+We consulted each other as we were partners.
 
 
 5. Is there anything special we need to know in order to run your code?
@@ -38,11 +38,11 @@ npm install to install all dependencies then ionic lab. Also the styling for iOS
 
 
 6. Did you design your app with a particular type of user in mind? If so, whom?
-Not in particular but we did design it for ourselves so I guess college students or people in our age range (early 20s)
+Not in particular, but we did design it for ourselves, so the closest would be college students or people in our age range (early 20s)
 
 
 7. Did you design your app specifically for iOS or Android, or both?
-For Android as shown by the screwed up styling on iOS compared to Android.
+For Android, as iOS styling was inconsistent compared to Android.
 
 
 8. How can a person log overnight sleep in your app? Why did you choose to support logging overnight sleep in this way?
