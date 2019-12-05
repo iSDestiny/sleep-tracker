@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SleepService } from '../services/sleep.service';
 import { OvernightSleepData } from '../data/overnight-sleep-data';
 import { StanfordSleepinessData } from '../data/stanford-sleepiness-data';
-import { AlertController } from '@ionic/angular';
+import {AlertController, ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-viewlogs',
@@ -11,10 +11,10 @@ import { AlertController } from '@ionic/angular';
 })
 export class ViewlogsPage implements OnInit {
 
-  public toggle: string
+  public toggle: string;
 
 
-  constructor(private sleepService: SleepService, public alertController: AlertController) { }
+  constructor(private sleepService: SleepService, public alertController: AlertController, public toastController: ToastController) { }
 
   ngOnInit() {
     this.toggle = "night";
@@ -46,15 +46,18 @@ export class ViewlogsPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Really Delete?',
       message: 'Deletion permanently removes this logged entry.',
+      cssClass: 'dark',
       buttons: [{
         text: 'Cancel',
         role: 'cancel',
-        cssClass: 'secondary',
+        cssClass: 'picker-btn',
         handler: () => {
           
         }
       }, {
         text: 'Okay',
+        role: 'okay',
+        cssClass: 'picker-btn',
         handler: () => {
           if (type === "sleepiness") {
             this.deleteSleepiness(id);
@@ -63,8 +66,22 @@ export class ViewlogsPage implements OnInit {
           }
         }
       }]
-    })
+    });
 
-    alert.present();
+    await alert.present();
+    alert.onDidDismiss().then((data) => {
+      if(data.role === 'okay') {
+        this.presentConfirmationToast()
+      }
+    })
+  }
+
+  async presentConfirmationToast() {
+    const toast = await this.toastController.create({
+      message: `Deleted the entry`,
+      position: 'bottom',
+      duration: 1000
+    });
+    return await toast.present();
   }
 }

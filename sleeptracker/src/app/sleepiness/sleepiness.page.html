@@ -1,24 +1,19 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="medium">
     <ion-title>Log Sleepiness</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-<!--  <ion-item>-->
-<!--    <ion-label>Sleepiness</ion-label>-->
-<!--    <ion-button slot="end" fill="clear" (click)="showScalePicker()">{{!scaleScore ? "Select Level" : scaleScore}}</ion-button>-->
-<!--  </ion-item>-->
-
+<ion-content color="dark">
   <ion-row  class="sleep-button-row">
     <ion-col class="ion-text-center" size="12">
-      <ion-button (click)="showScalePicker()" class="col ion-text-center sleepiness-btn ion-text-capitalize" size="large" shape="round" fill="outline" color="primary">{{this.scaleScore ? this.scaleScore : '_'}}</ion-button>
+      <ion-button (click)="showScalePicker()" class="col ion-text-center sleepiness-btn ion-text-capitalize" size="large" shape="round" fill="outline" color="tertiary">{{this.scaleScore ? this.scaleScore : '_'}}</ion-button>
     </ion-col>
     <ion-col class="ion-text-center" size="12">
       <ion-text *ngIf="scaleText" class="scale-text">{{this.scaleText}}</ion-text>
     </ion-col>
     <ion-col class="ion-text-center submit-btn" size="12">
-      <ion-button [disabled]="!scaleScore" (click)="handleSleepinessData()" >Record sleepiness level</ion-button>
+      <ion-button [disabled]="!scaleScore" (click)="handleSleepinessData()" color="tertiary">Record sleepiness level</ion-button>
     </ion-col>
   </ion-row>
 </ion-content>
