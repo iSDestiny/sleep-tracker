@@ -1,5 +1,6 @@
 --Readme document for *author(s)*, *email(s)*, *UCI id(s)*--
 Kenny Jue, kdjue@uci.edu, 61581615
+Jason Bugallon, jbugallo@uci.edu 85806059
 
 1. How many assignment points do you believe you completed (replace the *'s with your numbers)?
 
@@ -74,7 +75,7 @@ We chose backing up logged data
 
 
 12. If you used a native device resource, what feature did you add? How does this feature change the app's experience for a user?
-
+We didn't use a native device resource
 
 
 13. If you backed up logged data, where does it back up to?
